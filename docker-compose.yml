@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://licensing:password@db:5432/licensing_db
+      - REDIS_URL=redis://redis:6379/0
+      - JWT_PRIVATE_KEY_PATH=/app/keys/private_key.pem
+      - JWT_PUBLIC_KEY_PATH=/app/keys/public_key.pem
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./keys:/app/keys
+    networks:
+      - licensing-net
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: licensing_db
+      POSTGRES_USER: licensing
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # ✅ Volume nommé (pas de chemin relatif)
+    networks:
+      - licensing-net
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - licensing-net
+
+# Déclaration explicite des volumes nommés
+volumes:
+  postgres_data:   # ✅ Nom complet, pas de typo
+
+networks:
+  licensing-net:
+    driver: bridge
