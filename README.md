@@ -5,10 +5,19 @@ Système de gestion de licences cloud avec :
 - Validation JWT sécurisée
 - Stockage PostgreSQL + Redis pour les quotas
 
+#Choix Techno
+L'utilisation de Python 3.11.9 + FastAPI :
+
+Développement rapide et sécurisé
+Bonne gestion de la concurrence
+Écosystème mature pour la sécurité et les APIs
+Facilité de test et de documentation
+L'architecture avec Redis pour la fenêtre glissante
+
 ## 🚀 Lancement
 
 ###```bash
-##mkdir -p keys
+##mkdir -p keys(Facultatif)
 ##docker compose up --build
 
 # Licensing Cloud Challenge
